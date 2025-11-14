@@ -27,6 +27,7 @@ body {
     text-align: center;
     width: 90%;
     max-width: 500px;
+    position: relative; /* Added to make confetti position relative to container */
 }
 
 h1 {
@@ -102,41 +103,43 @@ h2 {
     max-width: 80%;
 }
 
-/* --- ROCKET ANIMATION STYLES (UPDATED for speed) --- */
-#rocket-animation-container {
-    height: 150px;
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    overflow: hidden;
-}
-
-#rocket-img {
-    width: 80px;
-    height: auto;
+/* --- CONFETTI ANIMATION STYLES (NEW) --- */
+/* Container ensures confetti stays on top and uses absolute positioning */
+#confetti-container {
     position: absolute;
-    bottom: -150px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.0s;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through */
+    overflow: hidden;
+    z-index: 10;
+    display: none; 
 }
 
-/* Keyframe animation for faster blast off */
-@keyframes blastOff {
+/* Keyframe animation for the confetti drop */
+@keyframes drop {
     0% {
-        transform: translate(-50%, 0) rotate(0deg); 
+        transform: translateY(-100vh) rotate(0deg);
         opacity: 1;
     }
-    100% { /* Reaching the end state much faster */
-        transform: translate(-50%, -500px) rotate(10deg); 
-        opacity: 0;
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0.8;
     }
 }
 
-.blast-off {
-    animation: blastOff 1s ease-in forwards; /* CHANGED: Duration is now 1s, and easing is ease-in */
+/* CSS to generate the individual confetti pieces */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: transparent; /* Actual color set via JS/inline style */
+    opacity: 0;
+    animation: drop 3s ease-in forwards; /* 3 seconds duration */
+    border-radius: 2px;
 }
+
 
 input[type="number"], select {
     padding: 12px;
@@ -228,24 +231,5 @@ button:active {
         font-size: 1em;
         padding: 10px;
         width: 100%;
-    }
-
-    #rocket-animation-container {
-        height: 120px;
-        margin: 10px auto;
-    }
-
-    #rocket-img {
-        width: 60px;
-    }
-
-    /* Adjust keyframes for smaller vertical space and speed */
-    @keyframes blastOff {
-        0% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
-        100% { transform: translate(-50%, -400px) rotate(10deg); opacity: 0; }
-    }
-    
-    .blast-off {
-        animation: blastOff 1s ease-in forwards; /* Ensure mobile also uses the faster 1s duration */
     }
 }
