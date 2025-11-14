@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Mission Multiplier</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🚀 Mission Multiplier</h1>
+        <div id="game-setup">
+            <h2>Start Your Mission!</h2>
+            <p>Select the Times Table:</p>
+            <select id="table-select"></select>
+            <p>Number of Questions:</p>
+            <input type="number" id="q-count" value="20" min="5" max="50">
+            <button onclick="startGame()">Start Game</button>
+        </div>
+        
+        <div id="game-area" class="hidden">
+            <div id="score-board">
+                <span id="score-display">Score: 0/0</span> | 
+                <span id="time-display">Time: 0s</span>
+            </div>
+            
+            <div id="question-card">
+                <p id="question-text">Loading...</p>
+                <input type="number" id="answer-input" placeholder="Your Answer" required>
+                <button onclick="checkAnswer()">Submit</button>
+            </div>
+
+            <div id="feedback-message"></div>
+        </div>
+
+        <div id="results-screen" class="hidden">
+            <h2>Mission Complete! 🎉</h2>
+            <p id="final-score"></p>
+            <p id="final-time"></p>
+            <button onclick="resetGame()">Start New Mission</button>
+        </div>
+    </div>
+    
+    <audio id="correct-sound" src="https://www.soundjay.com/buttons/button-10.mp3" preload="auto"></audio>
+    <audio id="incorrect-sound" src="https://www.soundjay.com/buttons/button-12.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+:root {
+    --primary-color: #4CAF50; /* Green */
+    --secondary-color: #FFC107; /* Yellow */
+    --background-color: #f0f8ff; /* Light Cyan */
+    --card-color: #ffffff;
+    --text-color: #333;
+    --correct-color: #8BC34A; /* Light Green */
+    --incorrect-color: #FF5722; /* Deep Orange */
+}
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    background-color: var(--card-color);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: var(--secondary-color);
+}
+
+#question-card {
+    background-color: #e0f7fa; /* Very Light Blue */
+    padding: 30px 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+#question-text {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+input[type="number"], select {
+    padding: 12px;
+    margin: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+    box-shadow: 0 4px #388E3C; /* Darker green for 3D effect */
+}
+
+button:hover {
+    background-color: #5cb85c;
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #388E3C;
+}
+
+#feedback-message {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 15px;
+    min-height: 30px; /* Reserve space */
+}
+
+.correct {
+    color: var(--correct-color);
+}
+
+.incorrect {
+    color: var(--incorrect-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+#score-board {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--text-color);
+}
