@@ -88,7 +88,7 @@ function nextQuestion() {
     currentMultiplier = Math.floor(Math.random() * 12) + 1;
     currentAnswer = currentTable * currentMultiplier;
 
-    // UPDATED: Use innerHTML to place the entire question cleanly on separate lines
+    // UPDATED: Ensure consistent use of <p> tags for clear two-line display
     questionText.innerHTML = `
         <p>Question ${currentQuestion} of ${maxQuestions}:</p>
         <p>What is ${currentTable} &times; ${currentMultiplier}?</p>
