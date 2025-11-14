@@ -102,44 +102,40 @@ h2 {
     max-width: 80%;
 }
 
-/* --- ROCKET ANIMATION STYLES (UPDATED) --- */
+/* --- ROCKET ANIMATION STYLES (UPDATED for speed) --- */
 #rocket-animation-container {
-    height: 150px; /* Space for the rocket */
+    height: 150px;
     margin: 20px auto;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Rocket starts at the bottom of the container */
-    overflow: hidden; /* Hide rocket as it blasts off */
+    align-items: flex-end;
+    overflow: hidden;
 }
 
 #rocket-img {
-    width: 80px; /* Size of the rocket */
+    width: 80px;
     height: auto;
-    position: absolute; /* CHANGED to absolute */
-    bottom: -150px; /* Start far below view */
-    left: 50%; /* Center the rocket horizontally */
-    transform: translateX(-50%); /* Adjust for perfect centering */
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%);
     transition: all 0.0s;
 }
 
-/* Keyframe animation for blast off */
+/* Keyframe animation for faster blast off */
 @keyframes blastOff {
     0% {
-        transform: translate(-50%, 0) rotate(0deg); /* Use translate for consistency */
+        transform: translate(-50%, 0) rotate(0deg); 
         opacity: 1;
     }
-    50% {
-        transform: translate(-50%, -200px) rotate(5deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, -500px) rotate(10deg);
+    100% { /* Reaching the end state much faster */
+        transform: translate(-50%, -500px) rotate(10deg); 
         opacity: 0;
     }
 }
 
 .blast-off {
-    animation: blastOff 2s ease-out forwards; /* Apply animation */
+    animation: blastOff 1s ease-in forwards; /* CHANGED: Duration is now 1s, and easing is ease-in */
 }
 
 input[type="number"], select {
@@ -243,10 +239,13 @@ button:active {
         width: 60px;
     }
 
-    /* Adjust keyframes for smaller vertical space */
+    /* Adjust keyframes for smaller vertical space and speed */
     @keyframes blastOff {
         0% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
-        50% { transform: translate(-50%, -150px) rotate(5deg); opacity: 1; }
         100% { transform: translate(-50%, -400px) rotate(10deg); opacity: 0; }
+    }
+    
+    .blast-off {
+        animation: blastOff 1s ease-in forwards; /* Ensure mobile also uses the faster 1s duration */
     }
 }
