@@ -47,11 +47,28 @@ h2 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* NEW CSS for two-line question display */
 #question-text {
-    font-size: 2.2em;
-    font-weight: 700;
     margin-bottom: 20px;
 }
+
+#question-text p:first-child {
+    /* For "Question 1 of 20:" */
+    font-size: 1.2em; /* Smaller and less imposing */
+    font-weight: 400;
+    margin-bottom: 5px;
+    color: #666; /* Slightly greyed out */
+    line-height: 1.2;
+}
+
+#question-text p:last-child {
+    /* For "What is 2 x 10?" */
+    font-size: 2.5em; /* Larger and clearer focus */
+    font-weight: 700;
+    margin-top: 5px;
+    line-height: 1.2;
+}
+/* END NEW CSS */
 
 input[type="number"], select {
     padding: 12px;
