@@ -25,6 +25,10 @@
                 <span id="time-display">Time: 0s</span>
             </div>
             
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+            
             <div id="question-card">
                 <div id="question-text">Loading...</div> 
                 <input type="number" id="answer-input" placeholder="Your Answer" required>
@@ -36,6 +40,7 @@
 
         <div id="results-screen" class="hidden">
             <h2>Mission Complete! 🎉</h2>
+            <div id="reward-display"></div> 
             <p id="final-score"></p>
             <p id="final-time"></p>
             <button onclick="resetGame()">Start New Mission</button>
