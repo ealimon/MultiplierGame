@@ -71,8 +71,18 @@ function startTimer() {
     }, 1000);
 }
 
+function updateProgressBar() {
+    const percentage = (currentQuestion / maxQuestions) * 100;
+    document.getElementById('progress-bar').style.width = `${percentage}%`;
+}
+
+
 function nextQuestion() {
     currentQuestion++;
+    
+    // Update bar on question load (for Q2, Q3, etc. completion)
+    updateProgressBar();
+    
     if (currentQuestion > maxQuestions) {
         endGame();
         return;
@@ -134,6 +144,7 @@ function handleEnterKey(event) {
 function endGame() {
     clearInterval(timerInterval);
     const totalTime = Math.floor((Date.now() - startTime) / 1000);
+    const percentage = (score / maxQuestions) * 100;
     
     // Remove the Enter key listener
     answerInput.removeEventListener('keyup', handleEnterKey);
@@ -141,12 +152,35 @@ function endGame() {
     // Hide game area, show results
     gameArea.classList.add('hidden');
     resultsScreen.classList.remove('hidden');
+    
+    // Ensure bar is 100% full when game ends
+    updateProgressBar();
+    
+    // Get Reward Display Element and reset it
+    const rewardDisplay = document.getElementById('reward-display');
+    rewardDisplay.style.display = 'none';
+    rewardDisplay.textContent = '';
+
+    // Check for Reward (90% or higher)
+    if (percentage >= 90) {
+        rewardDisplay.textContent = "🌟 Mission Master! 🌟";
+        rewardDisplay.style.display = 'block';
+        // Resetting colors if they were changed by the previous conditional
+        rewardDisplay.style.color = '#FFD700'; 
+        rewardDisplay.style.borderColor = '#FFD700';
+    } else if (percentage >= 70) {
+        rewardDisplay.textContent = "Great Effort! Keep Practicing!";
+        rewardDisplay.style.display = 'block';
+        rewardDisplay.style.color = '#FFA500'; // Orange
+        rewardDisplay.style.borderColor = '#FFA500';
+    }
+
 
     // Display results
-    document.getElementById('final-score').textContent = `You scored ${score} out of ${maxQuestions}!`;
+    document.getElementById('final-score').textContent = `You scored ${score} out of ${maxQuestions} (${percentage.toFixed(0)}%)!`;
     document.getElementById('final-time').textContent = `Total time: ${totalTime} seconds!`;
 
-    // Automatically advance to the next table if current table is done
+    // Logic to automatically advance to the next table
     if (currentTable < maxTable) {
         document.getElementById('results-screen').innerHTML += 
             `<button onclick="autoAdvanceNextTable()">Continue to the ${currentTable + 1}'s Table</button>`;
@@ -159,6 +193,7 @@ function autoAdvanceNextTable() {
     // Remove the "Continue" button dynamically added
     document.getElementById('results-screen').innerHTML = 
         `<h2>Mission Complete! 🎉</h2>
+        <div id="reward-display"></div> 
         <p id="final-score"></p>
         <p id="final-time"></p>
         <button onclick="resetGame()">Start New Mission</button>`;
