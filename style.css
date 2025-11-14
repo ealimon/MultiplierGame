@@ -102,7 +102,7 @@ h2 {
     max-width: 80%;
 }
 
-/* --- ROCKET ANIMATION STYLES --- */
+/* --- ROCKET ANIMATION STYLES (UPDATED) --- */
 #rocket-animation-container {
     height: 150px; /* Space for the rocket */
     margin: 20px auto;
@@ -115,23 +115,25 @@ h2 {
 #rocket-img {
     width: 80px; /* Size of the rocket */
     height: auto;
-    position: relative; /* Allows animation */
+    position: absolute; /* CHANGED to absolute */
     bottom: -150px; /* Start far below view */
-    transition: all 0.0s; /* No initial transition, JS will apply class */
+    left: 50%; /* Center the rocket horizontally */
+    transform: translateX(-50%); /* Adjust for perfect centering */
+    transition: all 0.0s;
 }
 
 /* Keyframe animation for blast off */
 @keyframes blastOff {
     0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translate(-50%, 0) rotate(0deg); /* Use translate for consistency */
         opacity: 1;
     }
     50% {
-        transform: translateY(-200px) rotate(5deg); /* Moves up, slight tilt */
+        transform: translate(-50%, -200px) rotate(5deg);
         opacity: 1;
     }
     100% {
-        transform: translateY(-500px) rotate(10deg); /* Blasts far off screen */
+        transform: translate(-50%, -500px) rotate(10deg);
         opacity: 0;
     }
 }
@@ -203,12 +205,12 @@ button:active {
     
     .game-container {
         padding: 20px;
-        margin: 15px; /* Add margin so it doesn't touch screen edges */
-        box-shadow: none; /* Remove heavy shadow on mobile for cleaner look */
+        margin: 15px;
+        box-shadow: none;
     }
 
     h1 {
-        font-size: 2em; /* Slightly smaller main title */
+        font-size: 2em;
     }
 
     #question-card {
@@ -217,11 +219,11 @@ button:active {
     }
 
     #question-text p:last-child {
-        font-size: 2em; /* Ensure the question numbers fit well */
+        font-size: 2em;
     }
 
     #reward-display {
-        font-size: 1.4em; /* Smaller reward text */
+        font-size: 1.4em;
         max-width: 100%;
         margin: 10px auto;
     }
@@ -229,7 +231,7 @@ button:active {
     input[type="number"], select, button {
         font-size: 1em;
         padding: 10px;
-        width: 100%; /* Make inputs and buttons full width */
+        width: 100%;
     }
 
     #rocket-animation-container {
@@ -238,13 +240,13 @@ button:active {
     }
 
     #rocket-img {
-        width: 60px; /* Smaller rocket on small screens */
+        width: 60px;
     }
 
     /* Adjust keyframes for smaller vertical space */
     @keyframes blastOff {
-        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-        50% { transform: translateY(-150px) rotate(5deg); opacity: 1; }
-        100% { transform: translateY(-400px) rotate(10deg); opacity: 0; }
+        0% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
+        50% { transform: translate(-50%, -150px) rotate(5deg); opacity: 1; }
+        100% { transform: translate(-50%, -400px) rotate(10deg); opacity: 0; }
     }
 }
