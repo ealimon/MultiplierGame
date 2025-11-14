@@ -17,7 +17,7 @@ const scoreDisplay = document.getElementById('score-display');
 const timeDisplay = document.getElementById('time-display');
 const feedbackMessage = document.getElementById('feedback-message');
 const tableSelect = document.getElementById('table-select');
-const rocketImg = document.getElementById('rocket-img'); // NEW LINE
+const rocketImg = document.getElementById('rocket-img'); 
 
 // Audio elements
 const correctSound = document.getElementById('correct-sound');
@@ -199,7 +199,7 @@ function autoAdvanceNextTable() {
     document.getElementById('results-screen').innerHTML = 
         `<h2>Mission Complete! 🎉</h2>
         <div id="rocket-animation-container">
-            <img id="rocket-img" src="https://www.pngall.com/wp-content/uploads/13/Rocket-PNG-Images-HD.png" alt="Rocket" class="hidden">
+            <img id="rocket-img" src="rocket.png" alt="Rocket" class="hidden">
         </div>
         <div id="reward-display"></div> 
         <p id="final-score"></p>
@@ -217,10 +217,10 @@ function resetGame() {
     // Ensure the table select is set back to the current table
     tableSelect.value = currentTable;
 
-    // NEW: Reset rocket for next game
+    // RESET ROCKET: Hide it and remove the animation class
     rocketImg.classList.add('hidden');
     rocketImg.classList.remove('blast-off');
-    rocketImg.style.bottom = '-150px'; // Reset its position
+    // We rely on the CSS 'bottom: -150px' to reset its start position for the next game
 }
 
 // --- Sound Functions ---
