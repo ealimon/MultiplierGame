@@ -102,7 +102,7 @@ h2 {
     max-width: 80%;
 }
 
-/* --- ROCKET ANIMATION STYLES (NEW) --- */
+/* --- ROCKET ANIMATION STYLES --- */
 #rocket-animation-container {
     height: 150px; /* Space for the rocket */
     margin: 20px auto;
@@ -196,4 +196,55 @@ button:active {
     font-size: 1.1em;
     font-weight: 700;
     color: var(--text-color);
+}
+
+/* --- MOBILE RESPONSIVENESS (Media Queries) --- */
+@media (max-width: 600px) {
+    
+    .game-container {
+        padding: 20px;
+        margin: 15px; /* Add margin so it doesn't touch screen edges */
+        box-shadow: none; /* Remove heavy shadow on mobile for cleaner look */
+    }
+
+    h1 {
+        font-size: 2em; /* Slightly smaller main title */
+    }
+
+    #question-card {
+        padding: 20px 15px;
+        margin: 15px 0;
+    }
+
+    #question-text p:last-child {
+        font-size: 2em; /* Ensure the question numbers fit well */
+    }
+
+    #reward-display {
+        font-size: 1.4em; /* Smaller reward text */
+        max-width: 100%;
+        margin: 10px auto;
+    }
+
+    input[type="number"], select, button {
+        font-size: 1em;
+        padding: 10px;
+        width: 100%; /* Make inputs and buttons full width */
+    }
+
+    #rocket-animation-container {
+        height: 120px;
+        margin: 10px auto;
+    }
+
+    #rocket-img {
+        width: 60px; /* Smaller rocket on small screens */
+    }
+
+    /* Adjust keyframes for smaller vertical space */
+    @keyframes blastOff {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        50% { transform: translateY(-150px) rotate(5deg); opacity: 1; }
+        100% { transform: translateY(-400px) rotate(10deg); opacity: 0; }
+    }
 }
