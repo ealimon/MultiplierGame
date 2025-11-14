@@ -17,6 +17,7 @@ const scoreDisplay = document.getElementById('score-display');
 const timeDisplay = document.getElementById('time-display');
 const feedbackMessage = document.getElementById('feedback-message');
 const tableSelect = document.getElementById('table-select');
+const rocketImg = document.getElementById('rocket-img'); // NEW LINE
 
 // Audio elements
 const correctSound = document.getElementById('correct-sound');
@@ -161,6 +162,10 @@ function endGame() {
     rewardDisplay.style.display = 'none';
     rewardDisplay.textContent = '';
 
+    // NEW: Show rocket and trigger animation
+    rocketImg.classList.remove('hidden'); // Make rocket visible
+    rocketImg.classList.add('blast-off');  // Start animation
+
     // Check for Reward (90% or higher)
     if (percentage >= 90) {
         rewardDisplay.textContent = "🌟 Mission Master! 🌟";
@@ -193,6 +198,9 @@ function autoAdvanceNextTable() {
     // Remove the "Continue" button dynamically added
     document.getElementById('results-screen').innerHTML = 
         `<h2>Mission Complete! 🎉</h2>
+        <div id="rocket-animation-container">
+            <img id="rocket-img" src="https://www.pngall.com/wp-content/uploads/13/Rocket-PNG-Images-HD.png" alt="Rocket" class="hidden">
+        </div>
         <div id="reward-display"></div> 
         <p id="final-score"></p>
         <p id="final-time"></p>
@@ -208,6 +216,11 @@ function resetGame() {
     setupScreen.classList.remove('hidden');
     // Ensure the table select is set back to the current table
     tableSelect.value = currentTable;
+
+    // NEW: Reset rocket for next game
+    rocketImg.classList.add('hidden');
+    rocketImg.classList.remove('blast-off');
+    rocketImg.style.bottom = '-150px'; // Reset its position
 }
 
 // --- Sound Functions ---
