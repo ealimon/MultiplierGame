@@ -87,7 +87,7 @@ h2 {
     transition: width 0.5s ease-in-out;
 }
 
-/* --- REWARD STYLES (NEW) --- */
+/* --- REWARD STYLES --- */
 #reward-display {
     font-size: 1.8em;
     font-weight: 700;
@@ -100,6 +100,44 @@ h2 {
     display: none; 
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     max-width: 80%;
+}
+
+/* --- ROCKET ANIMATION STYLES (NEW) --- */
+#rocket-animation-container {
+    height: 150px; /* Space for the rocket */
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Rocket starts at the bottom of the container */
+    overflow: hidden; /* Hide rocket as it blasts off */
+}
+
+#rocket-img {
+    width: 80px; /* Size of the rocket */
+    height: auto;
+    position: relative; /* Allows animation */
+    bottom: -150px; /* Start far below view */
+    transition: all 0.0s; /* No initial transition, JS will apply class */
+}
+
+/* Keyframe animation for blast off */
+@keyframes blastOff {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-200px) rotate(5deg); /* Moves up, slight tilt */
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-500px) rotate(10deg); /* Blasts far off screen */
+        opacity: 0;
+    }
+}
+
+.blast-off {
+    animation: blastOff 2s ease-out forwards; /* Apply animation */
 }
 
 input[type="number"], select {
