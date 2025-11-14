@@ -88,7 +88,12 @@ function nextQuestion() {
     currentMultiplier = Math.floor(Math.random() * 12) + 1;
     currentAnswer = currentTable * currentMultiplier;
 
-    questionText.textContent = `Question ${currentQuestion} of ${maxQuestions}: What is ${currentTable} × ${currentMultiplier}?`;
+    // UPDATED: Use innerHTML to place the entire question cleanly on separate lines
+    questionText.innerHTML = `
+        <p>Question ${currentQuestion} of ${maxQuestions}:</p>
+        <p>What is ${currentTable} &times; ${currentMultiplier}?</p>
+    `;
+
     scoreDisplay.textContent = `Score: ${score}/${currentQuestion - 1}`;
 }
 
