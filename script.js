@@ -17,7 +17,7 @@ const scoreDisplay = document.getElementById('score-display');
 const timeDisplay = document.getElementById('time-display');
 const feedbackMessage = document.getElementById('feedback-message');
 const tableSelect = document.getElementById('table-select');
-const rocketImg = document.getElementById('rocket-img'); 
+const confettiContainer = document.getElementById('confetti-container'); // NEW LINE
 
 // Audio elements
 const correctSound = document.getElementById('correct-sound');
@@ -25,6 +25,9 @@ const incorrectSound = document.getElementById('incorrect-sound');
 
 let currentMultiplier;
 let currentAnswer;
+
+const CONFETTI_COLORS = ['#FFC300', '#FF5733', '#C70039', '#900C3F', '#581845', '#4CAF50', '#009688'];
+
 
 // --- Setup Functions ---
 
@@ -40,6 +43,12 @@ function populateTableSelect() {
 }
 
 populateTableSelect(); // Run on load
+
+// Function to manage input state
+function setInputState(enabled) {
+    answerInput.disabled = !enabled;
+    document.querySelector('#question-card button').disabled = !enabled;
+}
 
 function startGame() {
     currentTable = parseInt(tableSelect.value);
@@ -57,6 +66,7 @@ function startGame() {
 
     startTimer();
     nextQuestion();
+    setInputState(true); 
 
     // Attach event listener for Enter key
     answerInput.focus();
@@ -95,11 +105,13 @@ function nextQuestion() {
     feedbackMessage.className = '';
     answerInput.focus();
 
+    setInputState(true); 
+
     // Generate random multiplier (1 to 12)
     currentMultiplier = Math.floor(Math.random() * 12) + 1;
     currentAnswer = currentTable * currentMultiplier;
 
-    // UPDATED: Ensure consistent use of <p> tags for clear two-line display
+    // Ensure consistent use of <p> tags for clear two-line display
     questionText.innerHTML = `
         <p>Question ${currentQuestion} of ${maxQuestions}:</p>
         <p>What is ${currentTable} &times; ${currentMultiplier}?</p>
@@ -116,6 +128,8 @@ function checkAnswer() {
         feedbackMessage.textContent = "Please enter a number!";
         return;
     }
+    
+    setInputState(false); // Disable input and button immediately
 
     // Check if correct
     if (userAnswer === currentAnswer) {
@@ -138,9 +152,45 @@ function checkAnswer() {
 
 function handleEnterKey(event) {
     if (event.key === 'Enter') {
-        checkAnswer();
+        // Prevent accidental multiple submissions by checking state
+        if (!answerInput.disabled) {
+            checkAnswer();
+        }
     }
 }
+
+function triggerConfetti() {
+    confettiContainer.style.display = 'block';
+    
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        // Random color, position, and delay
+        const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+        const size = Math.random() * 8 + 4; // 4px to 12px
+        const left = Math.random() * 100; // 0% to 100% width
+        const delay = Math.random() * 0.8; // 0s to 0.8s delay
+        
+        confetti.style.backgroundColor = color;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        confetti.style.left = `${left}%`;
+        confetti.style.animationDelay = `${delay}s`;
+        
+        confettiContainer.appendChild(confetti);
+
+        // Clean up the element after the animation finishes (3s animation + max 0.8s delay)
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
+    }
+    // Hide the container after all animations are done
+    setTimeout(() => {
+         confettiContainer.style.display = 'none';
+    }, 4000);
+}
+
 
 function endGame() {
     clearInterval(timerInterval);
@@ -162,9 +212,8 @@ function endGame() {
     rewardDisplay.style.display = 'none';
     rewardDisplay.textContent = '';
 
-    // NEW: Show rocket and trigger animation
-    rocketImg.classList.remove('hidden'); // Make rocket visible
-    rocketImg.classList.add('blast-off');  // Start animation
+    // Trigger Confetti
+    triggerConfetti();
 
     // Check for Reward (90% or higher)
     if (percentage >= 90) {
@@ -195,12 +244,10 @@ function endGame() {
 function autoAdvanceNextTable() {
     currentTable++;
     tableSelect.value = currentTable;
-    // Remove the "Continue" button dynamically added
+    // Note: The image source in the auto advance reset must be changed too
     document.getElementById('results-screen').innerHTML = 
         `<h2>Mission Complete! 🎉</h2>
-        <div id="rocket-animation-container">
-            <img id="rocket-img" src="rocket.png" alt="Rocket" class="hidden">
-        </div>
+        <div id="confetti-container"></div> 
         <div id="reward-display"></div> 
         <p id="final-score"></p>
         <p id="final-time"></p>
@@ -217,10 +264,7 @@ function resetGame() {
     // Ensure the table select is set back to the current table
     tableSelect.value = currentTable;
 
-    // RESET ROCKET: Hide it and remove the animation class
-    rocketImg.classList.add('hidden');
-    rocketImg.classList.remove('blast-off');
-    // We rely on the CSS 'bottom: -150px' to reset its start position for the next game
+    // Confetti elements are self-cleaning, no manual reset needed here.
 }
 
 // --- Sound Functions ---
